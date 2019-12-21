@@ -1,3 +1,4 @@
+import json
 from random import randint
 
 
@@ -77,13 +78,26 @@ def generate_mode():
 def check_allocation(d):
     option = ""
     while option.upper() != "Q":
-        option = input("Enter your name or (Q)uit: ")
+        option = input("Enter your name or see (A)vailable names or (S)ave allocation or (Q)uit: ")
         if option in d.keys():
             print("\nYour allocated person is:", d[option], "\n")
+        elif option.upper() == "A":
+            print(f"Avaialable names are: {list(d.keys())}")
+        elif option.upper() == "S":
+            save_allocation(d)
         elif option.upper() == "Q":
             continue
         else:
             print("\nThat name is not in the allocation. Please check your spelling.\n")
+
+
+def save_allocation(d):
+    file_name = input("Please enter the filename to save your allocation to (including '.json'): ")
+    json_str = json.dumps(d)
+    with open(file_name, "w") as f:
+        f.write(json_str)
+    print(f"Allocation successfully saved as {file_name}.json")
+    exit()
 
 
 def input_names():
@@ -108,8 +122,12 @@ def input_names():
 
 
 def load_mode():
-    print("To be implemented.")
-    exit()
+    file_name = input("Enter the file name of the file you want to load (including '.json'): ")
+    with open(file_name) as f:
+        json_str = f.read()
+    d = json.loads(json_str)
+    print(f"\nLoaded allocation from {file_name}.")
+    check_allocation(d)
 
 
 def print_introduction():
