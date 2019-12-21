@@ -96,7 +96,7 @@ def save_allocation(d):
     json_str = json.dumps(d)
     with open(file_name, "w") as f:
         f.write(json_str)
-    print(f"Allocation successfully saved as {file_name}.json")
+    print(f"Allocation successfully saved as {file_name}.")
     exit()
 
 
