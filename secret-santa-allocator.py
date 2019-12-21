@@ -35,10 +35,29 @@ def get_hard_allocation(d):
     return arr
 
 
+def create_hard_allocation(d):
+    print("Available names are:", str(list(d.keys())) + ".\n")
+    allocated = []
+
+    option = ""
+    while option.upper() != "F":
+        option = input("Type in a name or (F)inish hard allocation: ")
+        if option in d.keys():
+            chosen_allocation = input("Choose person to allocate: ")
+            if (chosen_allocation in d.keys()) and (chosen_allocation != option) and (chosen_allocation not in allocated):
+                d[option] = chosen_allocation
+                allocated.append(chosen_allocation)
+                print("\n" + option, "was allocated", chosen_allocation + ".\n")
+                continue
+        elif option.upper() == "F":
+            continue
+        print("\nThat is not a valid allocation. Please try again.\n")
+
+
 def main():
     names = ["Nathan", "Justin", "Julia", "Finlay", "Megan"]
     unallocated_dict = create_dictionary(names)
-    unallocated_dict["Julia"] = "Megan"
+    create_hard_allocation(unallocated_dict)
     allocated_dict = allocate(unallocated_dict, names)
 
     option = ""
