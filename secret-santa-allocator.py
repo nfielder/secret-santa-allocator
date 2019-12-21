@@ -36,7 +36,7 @@ def get_hard_allocation(d):
 
 
 def create_hard_allocation(d):
-    print("Available names are:", str(list(d.keys())) + ".\n")
+    print("\nAvailable names are:", str(list(d.keys())))
     allocated = []
 
     option = ""
@@ -55,7 +55,61 @@ def create_hard_allocation(d):
 
 
 def select_mode():
-    mode = input("Please select your mode: (G)enerate or (L)oad.")
+    mode = input("Please select your mode: (G)enerate or (L)oad: ")
+    if mode.upper() == "G":
+        generate_mode()
+    elif mode.upper() == "L":
+        load_mode()
+    else:
+        print("\nThat isn't a valid option. Try again.\n")
+        select_mode()
+
+
+def generate_mode():
+    names = input_names()
+    unallocated_dict = create_dictionary(names)
+    create_hard_allocation(unallocated_dict)
+    allocated_dict = allocate(unallocated_dict, names)
+    print("\n*** ALLOCATION COMPLETED! ***G\n")
+    check_allocation(allocated_dict)
+
+
+def check_allocation(d):
+    option = ""
+    while option.upper() != "Q":
+        option = input("Enter your name or (Q)uit: ")
+        if option in d.keys():
+            print("\nYour allocated person is:", d[option], "\n")
+        elif option.upper() == "Q":
+            continue
+        else:
+            print("\nThat name is not in the allocation. Please check your spelling.\n")
+
+
+def input_names():
+    while True:
+        try:
+            n = int(input("How many people are partaking in the secret santa? "))
+            break
+        except ValueError:
+            print("\nThat is not a valid integer. Please try again.\n")
+
+    names = []
+    i = 0
+    while i < n:
+        name = input("Enter the name of person " + str(i+1) + ": ")
+        if name not in names:
+            names.append(name)
+            i += 1
+        else:
+            print("\nName must be unique! Maybe add the initial of a surname?\n")
+
+    return names
+
+
+def load_mode():
+    print("To be implemented.")
+    exit()
 
 
 def print_introduction():
@@ -69,20 +123,6 @@ def print_introduction():
 def main():
     print_introduction()
     select_mode()
-    names = ["Nathan", "Justin", "Julia", "Finlay", "Megan"]
-    unallocated_dict = create_dictionary(names)
-    create_hard_allocation(unallocated_dict)
-    allocated_dict = allocate(unallocated_dict, names)
-
-    option = ""
-    while option.upper() != "Q":
-        option = input("Enter your name or (Q)uit: ")
-        if option in allocated_dict.keys():
-            print("\nYour allocated person is:", allocated_dict[option], "\n")
-        elif option.upper() == "Q":
-            continue
-        else:
-            print("\nThat name is not in the allocation. Please check your spelling.\n")
 
 
 if __name__ == "__main__":
