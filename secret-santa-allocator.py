@@ -9,8 +9,11 @@ def create_dictionary(names):
 
 
 def allocate(d, names):
-    allocated = []
+    d["Julia"] = "Megan"
+    allocated = ["Megan"]
     for key in d.keys():
+        if key == "Julia":
+            continue
         available = names.copy()
         available.remove(key)
         for name in allocated:
@@ -29,7 +32,12 @@ def main():
     names = ["Nathan", "Justin", "Julia", "Finlay", "Megan"]
     unallocated_dict = create_dictionary(names)
     allocated_dict = allocate(unallocated_dict, names)
-    print(allocated_dict)
+
+    option = ""
+    while option.upper() != "Q":
+        option = input("Enter your name or (Q)uit: ")
+        if option in allocated_dict.keys():
+            print("\nYour allocated person is:", allocated_dict[option], "\n")
 
 
 if __name__ == "__main__":
