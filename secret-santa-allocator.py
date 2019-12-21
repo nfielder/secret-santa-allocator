@@ -54,7 +54,21 @@ def create_hard_allocation(d):
         print("\nThat is not a valid allocation. Please try again.\n")
 
 
+def select_mode():
+    mode = input("Please select your mode: (G)enerate or (L)oad.")
+
+
+def print_introduction():
+    print("\nWelcome to the Secret Santa Allocator!\n")
+    print("This program allows easy allocation of individuals for the classic secret santa format.")
+    print("The program has two modes: Generate and Load.")
+    print("-Generate will go through the process of a creating a new allocation.")
+    print("-Load will reload an existing allocation.\n")
+
+
 def main():
+    print_introduction()
+    select_mode()
     names = ["Nathan", "Justin", "Julia", "Finlay", "Megan"]
     unallocated_dict = create_dictionary(names)
     create_hard_allocation(unallocated_dict)
